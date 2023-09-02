@@ -1,6 +1,7 @@
 package telegram
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -31,7 +32,15 @@ func (c *Client) Update(offset int, limit int) ([]Update, error) {
 	q := url.Values{}
 	q.Add("offset", strconv.Itoa(offset))
 	q.Add("offset", strconv.Itoa(offset))
-	data , err :=
+	data, err := c.doRequest("getUpdates", q)
+	if err != nil {
+		return nil, err
+	}
+	var res UpdateResponse
+	if err := json.Unmarshal(data, &res); err != nil {
+		return nil, err
+	}
+
 }
 
 func (c *Client) doRequest(method string, query url.Values) ([]byte, error) {
@@ -58,6 +67,12 @@ func (c *Client) doRequest(method string, query url.Values) ([]byte, error) {
 	return body, nil
 }
 
-func SendMassage() {
+func (c *Client) SendMassage(chatId int, text string) {
+	q := url.Values{}
+	q.Add("chat_id", strconv.Itoa(chatId))
+	q.Add("text", text)
+	_, err := c.doRequest("sendMassage", q)
+	if err != nil {
 
+	}
 }
