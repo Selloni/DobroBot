@@ -67,12 +67,13 @@ func (c *Client) doRequest(method string, query url.Values) ([]byte, error) {
 	return body, nil
 }
 
-func (c *Client) SendMassage(chatId int, text string) {
+func (c *Client) SendMassage(chatId int, text string) error {
 	q := url.Values{}
 	q.Add("chat_id", strconv.Itoa(chatId))
 	q.Add("text", text)
 	_, err := c.doRequest("sendMassage", q)
 	if err != nil {
-
+		return err
 	}
+	return nil
 }
