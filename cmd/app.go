@@ -2,6 +2,7 @@ package main
 
 import (
 	admin "DobroBot/admin/telegram"
+	"DobroBot/client/telegram"
 	"fmt"
 	tg "github.com/go-telegram-bot-api/telegram-bot-api"
 	"log"
@@ -29,24 +30,14 @@ func main() {
 
 		// Получаем Telegram ID пользователя
 		fmt.Println(update.Message.From.ID, bot)
-		//keyboard := tg.NewReplyKeyboard(
-		//	tg.NewKeyboardButtonRow(
-		//		tg.NewKeyboardButton("Кнопка 1"),
-		//		tg.NewKeyboardButton("Кнопка 2"),
-		//	),
-		//	tg.NewKeyboardButtonRow(
-		//		tg.NewKeyboardButton("Кнопка 3"),
-		//		tg.NewKeyboardButton("Кнопка 4"),
-		//	),
-		//)
-		//
-		//// Устанавливаем клавиатуру в сообщение
-		//msg.ReplyMarkup = keyboard
+
 		if admin.IsAdmin(update.Message.From.ID) {
 			admin.AdminPanel(update, &msg)
 		} else {
-
+			msg := tg.NewMessage(update.Message.Chat.ID, "Приветствие и информация ...")
+			bot.Send(msg)
+			telegram.ClientPanel(update, &msg)
 		}
-		bot.Send(msg)
+		//bot.Send(msg)
 	}
 }

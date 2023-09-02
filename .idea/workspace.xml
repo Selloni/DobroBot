@@ -8,10 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/telegram/telegram.go" beforeDir="false" afterPath="$PROJECT_DIR$/admin/telegram/telegram.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/telegram/telegram.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/telegram/telegram.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/telegram/type.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/telegram/type.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/telegram/type.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,5 +72,16 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/admin/telegram/telegram.go</url>
+          <line>50</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
