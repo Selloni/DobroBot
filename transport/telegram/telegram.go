@@ -12,7 +12,6 @@ import (
 
 var mainMenuKeyboard = tgbotapi.NewReplyKeyboard(
 	tgbotapi.NewKeyboardButtonRow(
-		//tgbotapi.NewKeyboardButton("о себе"),
 		tgbotapi.NewKeyboardButton("Благотворительность"),
 	),
 	tgbotapi.NewKeyboardButtonRow(
@@ -37,8 +36,13 @@ func NewTelegram(s store.Store, ch chan (model.Discont)) *Telegram {
 	}
 }
 
-const textAbout = `Очень крутой фонд
-всем советую!`
+const textAbout = `	Фонд борьбы с диабетом — некоммерческая организация
+помощи людям с сахарным диабетом.
+	Мы стремимся сделать так, чтобы каждый человек с сахарным диабетом, вне зависимости от своего местонахождения и жизненной ситуации, имел возможность получить помощь
+ Наши контакты: +7 (980) 915-72-22 ( WhatsApp или Telegram)
+info@diabet-fond.ru
+https://diabet-fond.ru/
+ул. Сеченова 5, Казань`
 
 func (t *Telegram) Run(token string) {
 	t.wannaPay = make(map[int64]struct{}, 10)

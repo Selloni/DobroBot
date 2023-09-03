@@ -2,7 +2,7 @@ package main
 
 import (
 	"DobroBot/model"
-	customestore "DobroBot/store/customeStore"
+	customestore "DobroBot/store/customestore"
 	"DobroBot/transport/rest"
 	"DobroBot/transport/telegram"
 	"net/http"
