@@ -87,7 +87,7 @@ func (t *Telegram) Run(token string) {
 			}
 			switch update.Message.Text {
 			case "/start":
-				msg.Text = fmt.Sprintf("Привет, Герой !")
+				msg.Text = fmt.Sprintf("Привет, наш Герой !")
 				msg.ReplyMarkup = mainMenuKeyboard
 
 			case "Благотворительность":
@@ -101,18 +101,31 @@ func (t *Telegram) Run(token string) {
 					log.Fatalf("couldn't get the donation amount, %v", err)
 				}
 
-				msg.Text = fmt.Sprintf("Твой уровень: Герой Квартала\n Твоя популярность: %d ед", sumDonate.Donations)
+				msg.Text = fmt.Sprintf("Твой уровень: %s\n Твоя популярность: %d ед",
+					t.heroLvl(sumDonate), sumDonate.Donations)
 			default:
 				msg.Text = "Пожалуйста, используйте команды для взаимодействия с ботом."
 			}
 		}
 
 		if _, err := bot.Send(msg); err != nil {
-			log.Panic(err)
+			log.Fatal(err)
 		}
 	}
+}
 
-	//}
+func (t *Telegram) heroLvl(donate model.User) string {
+	title := "Иследователь"
+	if donate.Donations >= 5000 {
+		title = "Герой Империи"
+	} else if donate.Donations > 1000 {
+		title = "Герой Города"
+	} else if donate.Donations >= 500 {
+		title = "Герой Квартала"
+	} else if donate.Donations > 100 {
+		title = "Искатель приключений"
+	}
+	return title
 }
 
 func (t *Telegram) checkForDisconts(bot *tgbotapi.BotAPI) {

@@ -1,4 +1,2 @@
-git:
-	git add .
-	git commit -m "check 1"
-	git push
+run:
+	go run cmd/app.go
