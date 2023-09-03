@@ -1,43 +1,21 @@
 package main
 
 import (
-	admin "DobroBot/admin/telegram"
-	"DobroBot/client/telegram"
-	"fmt"
-	tg "github.com/go-telegram-bot-api/telegram-bot-api"
-	"log"
+	"DobroBot/model"
+	customestore "DobroBot/store/customeStore"
+	"DobroBot/transport/rest"
+	"DobroBot/transport/telegram"
+	"net/http"
 )
 
 func main() {
-	bot, err := tg.NewBotAPI("6548886185:AAH_D2kYxX2GIV5PhuDWKPjwBpidWeeBVx4")
-	if err != nil {
-		log.Fatal(err)
-	}
+	store := customestore.NewStore()
+	ch := make(chan (model.Discont), 10)
+	tg := telegram.NewTelegram(store, ch)
 
-	log.Printf("Authorized on account %s", bot.Self.UserName)
+	go tg.Run("6548886185:AAH_D2kYxX2GIV5PhuDWKPjwBpidWeeBVx4")
 
-	u := tg.NewUpdate(0)
-	u.Timeout = 60
+	handler := rest.NewHandler(ch)
 
-	updates, err := bot.GetUpdatesChan(u)
-
-	for update := range updates {
-		if update.Message == nil {
-			continue
-		}
-		msg := tg.NewMessage(update.Message.Chat.ID, update.Message.Text)
-		//msg.ReplyToMessageID = update.Message.MessageID
-
-		// Получаем Telegram ID пользователя
-		fmt.Println(update.Message.From.ID, bot)
-
-		if admin.IsAdmin(update.Message.From.ID) {
-			admin.AdminPanel(update, &msg)
-		} else {
-			msg := tg.NewMessage(update.Message.Chat.ID, "Приветствие и информация ...")
-			bot.Send(msg)
-			telegram.ClientPanel(update, &msg)
-		}
-		//bot.Send(msg)
-	}
+	http.ListenAndServe("localhost:8080", handler.Init())
 }
